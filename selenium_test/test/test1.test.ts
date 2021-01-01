@@ -14,6 +14,15 @@ describe('test1', () => {
   });
   afterEach(async () => {
     driver && await driver.quit();
+    const deleteTargetFilePathList = ['./selenium_test/test/tempImage.png'];
+    for (let deleteTargetFilePath of deleteTargetFilePathList) {
+      const fileFullPath = resolve(deleteTargetFilePath);
+      // ファイルがない場合も実行し、その場合はエラーログを出力する。
+      fs.unlink(fileFullPath, (err) => {
+        console.error('事後処理でファイルが削除できませんでした。\r\nファイルが存在しない可能性もあります。');
+        console.error(err);
+      });
+    }
   });
 
   it('ボタンからアップロード', async () => {

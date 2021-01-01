@@ -47,7 +47,7 @@ const FileUploadArea: React.FC<{
   });
 
   return (
-    <div className={classes.uploadArea} {...getRootProps({})}>
+    <div data-testid='dropzoneRoot' className={classes.uploadArea} {...getRootProps()}>
       <input {...getInputProps()} />
       <div className={classes.uploadIconBase}>
         <img alt='upload area' className={classes.uploadIcon} src={img} />

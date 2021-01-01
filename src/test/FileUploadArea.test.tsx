@@ -1,15 +1,16 @@
 import React from 'react';
-import FileUploadArea from '../src/components/FileUploadArea';
+import FileUploadArea from '../components/FileUploadArea';
 import { render, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import { waitFor } from '@testing-library/dom';
 
-describe('FileUploadArea', async () => {
-  it('test1', () => {
+describe('FileUploadArea', () => {
+  it('test1', async () => {
     // render
     const mockOnDropHandler = jest.fn();
-    const ui = (<FileUploadArea onDropHandler={mockOnDropHandler}/>);
-    let container;
-    let rerender;
+    const ui = <FileUploadArea onDropHandler={mockOnDropHandler} />;
+    let container: any;
+    let rerender: any;
     act(() => {
       const renderResult = render(ui);
       container = renderResult.container;
@@ -19,12 +20,14 @@ describe('FileUploadArea', async () => {
     // Drag & Drop
     const file = new File(['abcdefg'], 'test.png');
     const data = mockData([file]);
-    const dropzone = container.querySelector('div');
+    const dropzone = container!.querySelector('[data-testid="dropzoneRoot"]');
+    console.log(dropzone.getAttributeNames());
     dispatchEvt(dropzone, 'dragenter', data);
 
     // Assertion
-    expect(mockOnDropHandler).toHaveBeenCalled();
-
+    waitFor(() => {
+      expect(mockOnDropHandler).toHaveBeenCalled();
+    });
   });
 });
 
