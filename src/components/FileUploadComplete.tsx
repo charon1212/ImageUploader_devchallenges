@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
-  Button,
   FormControl,
-  InputAdornment,
   LinearProgress,
   makeStyles,
-  OutlinedInput,
   Paper,
   Typography,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import InButtonInput from './InButtonInput';
+import copy from 'copy-to-clipboard';
 
 const defaultMargin = {
   marginTop: 20,
@@ -22,20 +21,29 @@ const useStyles = makeStyles((theme) => ({
   base: {
     ...defaultMargin,
     width: 600,
+    paddingTop: 1,
+    paddingBottom: 1,
   },
   text: {
     textAlign: 'center',
     marginTop: 20,
   },
-  text2: {
-    color: 'gray',
-    textAlign: 'center',
-    marginTop: 40,
-  },
   button: {
     ...defaultMargin,
     marginBottom: 40,
     textTransform: 'none',
+  },
+  box: {
+    marginTop: 20,
+  },
+  img: {
+    border: '1px solid',
+  },
+  formControl: {
+    marginTop: 20,
+    marginBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   progressPage: {
     ...defaultMargin,
@@ -55,11 +63,14 @@ const useStyles = makeStyles((theme) => ({
 
 const FileUploadComplete: React.FC<{ fileUrl: string }> = (prop) => {
   const classes = useStyles();
+  const [hasCopiedLink, setHasCopiedLink] = useState(false);
   return prop.fileUrl === '' ? (
     <>
       <Paper className={classes.progressPage}>
         <div className={classes.progressDiv}>
-          <Typography id='labelUploading' className={classes.text}>Uploading...</Typography>
+          <Typography id='labelUploading' className={classes.text}>
+            Uploading...
+          </Typography>
           <LinearProgress className={classes.progressBar} />
         </div>
       </Paper>
@@ -67,29 +78,36 @@ const FileUploadComplete: React.FC<{ fileUrl: string }> = (prop) => {
   ) : (
     <>
       <Paper className={classes.base}>
-        <Box display='flex' justifyContent='center'>
+        <Box className={classes.box} display='flex' justifyContent='center'>
           <CheckCircleIcon fontSize='large' style={{ color: 'green' }} />
         </Box>
-        <Typography id='labelUploadSuccessed' className={classes.text}>Uploaded Successfully!</Typography>
+        <Typography id='labelUploadSuccessed' className={classes.text}>
+          Uploaded Successfully!
+        </Typography>
         <img
+          className={classes.img}
           src={prop.fileUrl}
-          style={{ width: 550, marginRight: '25px', marginLeft: '25px' }}
+          style={{
+            width: 550,
+            marginTop: '20px',
+            marginRight: '25px',
+            marginLeft: '25px',
+          }}
           alt='アップロードした画像'
         />
-        <FormControl fullWidth>
-          <OutlinedInput
-            id='imageLinkUrl'
-            readOnly={true}
-            value={prop.fileUrl}
-            endAdornment={
-              <InputAdornment position='end'>
-                <Button variant='contained' color='primary' size='large'>
-                  aaa
-                </Button>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+        <div className={classes.formControl}>
+          <FormControl fullWidth>
+            <InButtonInput
+              labelText={prop.fileUrl}
+              buttonPosition='end'
+              buttonText={hasCopiedLink ? 'Copied !' : 'Copy Link'}
+              onClick={() => {
+                copy(prop.fileUrl);
+                setHasCopiedLink(true);
+              }}
+            />
+          </FormControl>
+        </div>
       </Paper>
     </>
   );

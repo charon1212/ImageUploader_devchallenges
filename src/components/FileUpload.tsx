@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   text2: {
     color: 'gray',
     textAlign: 'center',
-    marginTop: 40,
+    marginTop: 20,
   },
   button: {
     ...defaultMargin,
-    marginBottom: 40,
+    marginBottom: 20,
     textTransform: 'none',
   },
 }));

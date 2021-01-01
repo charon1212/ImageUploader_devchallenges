@@ -19,8 +19,10 @@ describe('test1', () => {
       const fileFullPath = resolve(deleteTargetFilePath);
       // ファイルがない場合も実行し、その場合はエラーログを出力する。
       fs.unlink(fileFullPath, (err) => {
-        console.error('事後処理でファイルが削除できませんでした。\r\nファイルが存在しない可能性もあります。');
-        console.error(err);
+        if (err) {
+          console.error('事後処理でファイルが削除できませんでした。\r\nファイルが存在しない可能性もあります。');
+          console.error(err);
+        }
       });
     }
   });
