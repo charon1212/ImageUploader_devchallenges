@@ -1,44 +1,123 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+<!-- Please update value in the {}  -->
 
-## Available Scripts
+<h1 align="center">ImageUploader_devchallenges</h1>
 
-In the project directory, you can run:
+<div align="center">
+   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
+</div>
 
-### `yarn start`
+<div align="center">
+  <h3>
+    <a href="https://imageuploader-devchallenges.web.app">
+      Demo
+    </a>
+    <span> | </span>
+    <a href="https://{your-url-to-the-solution}">
+      Solution
+    </a>
+    <span> | </span>
+    <a href="https://devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx">
+      Challenge
+    </a>
+  </h3>
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<!-- TABLE OF CONTENTS -->
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Table of Contents
 
-### `yarn test`
+- [Overview](#overview)
+  - [Built With](#built-with)
+- [Features](#features)
+- [How to use](#how-to-use)
+- [License](#License)
+- [Contact](#contact)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- OVERVIEW -->
 
-### `yarn build`
+## Overview
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Application's screenshot
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+![screenshot](screenshot.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can see demo to access <https://imageuploader-devchallenges.web.app>.
+For more information, see [this article](https://qiita.com/charon1212/items/314706b141856e5892bb) (written in Japanese).
 
-### `yarn eject`
+### Built With
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org)
+- [Firebase](https://firebase.google.com)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Features
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
-## Learn More
+This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx) was to build an application to complete the given user stories.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## How To Use
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### run app
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/charon1212/ImageUploader_devchallenges.git
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm run start
+```
+
+### connect backend
+
+In order to connect backend, you should ...
+
+1. make firebase project.
+1. make .env file in your project root directory.  
+[/src/app/firebase/firebase.ts](https://github.com/charon1212/ImageUploader_devchallenges/blob/main/src/app/firebase/firebase.ts) include firebase settings.  
+(See .env.example and <https://firebase.google.com/docs/web/setup#add-sdks-initialize>)
+1. set firebase storage's security rule like below:
+
+```javascript
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /images/testFile.jpg {
+      allow read, write: if true;
+    }
+  }
+}
+```
+
+### execute react unit test
+
+After clone and npm install, execute command:
+
+```bash
+$ npm run test
+```
+
+### execute selenium e2e test
+
+In order to execute e2e test, you should ...
+
+1. download and setup selenium-webdriver.  
+(See "Installation" of <https://www.selenium.dev/selenium/docs/api/javascript/index.html>)
+1. execute command below:
+
+```bash
+$ npm run jesttest
+```
+
+## Contact
+
+- Mail <charon1212.teq@gmail.com>
+- GitHub [@charon1212](https://github.com/charon1212)
+- Twitter [@charon91179134](https://twitter.com/charon91179134)
